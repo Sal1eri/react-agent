@@ -6,7 +6,7 @@ import os
 from dataclasses import dataclass, field, fields
 from typing import Annotated
 
-from . import prompts
+from . import prompts 
 
 
 @dataclass(kw_only=True)
@@ -44,3 +44,10 @@ class Context:
 
             if getattr(self, f.name) == f.default:
                 setattr(self, f.name, os.environ.get(f.name.upper(), f.default))
+
+    
+
+if __name__ == "__main__":
+    context = Context()
+    print(context)
+    print(context.system_prompt)

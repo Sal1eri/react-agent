@@ -48,7 +48,7 @@ async def call_model(
             [{"role": "system", "content": system_message}, *state.messages]
         ),
     )
-
+    
     # Handle the case when it's the last step and the model still wants to use a tool
     if state.is_last_step and response.tool_calls:
         return {

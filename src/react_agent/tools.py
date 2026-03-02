@@ -27,3 +27,4 @@ async def search(query: str) -> Optional[dict[str, Any]]:
 
 
 TOOLS: List[Callable[..., Any]] = [search]
+
