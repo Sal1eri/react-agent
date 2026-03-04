@@ -13,7 +13,7 @@ from langgraph.runtime import get_runtime
 
 from react_agent.context import Context
 
-
+# i want to pass the search results from tavily
 async def search(query: str) -> Optional[dict[str, Any]]:
     """Search for general web results.
 
@@ -23,8 +23,30 @@ async def search(query: str) -> Optional[dict[str, Any]]:
     """
     runtime = get_runtime(Context)
     wrapped = TavilySearch(max_results=runtime.context.max_search_results)
-    return cast(dict[str, Any], await wrapped.ainvoke({"query": query}))
+    
 
+    # qiuyk's modify,it maybe useful for the log
+    raw = cast(dict[str, Any], await wrapped.ainvoke({"query": query}))
+    # print(f"Raw search results for query '{query}': {raw}")
+    blocks: list[str] = [f"[Search Query]\n{query}\n\n[Search Results]\n"]
+
+    for r in raw.get("results", []):
+        title = " ".join(str(r.get("title") or "").split())
+        content = " ".join(str(r.get("content") or r.get("snippet") or "").split())
+        url = " ".join(str(r.get("url") or "").split())
+
+        block = (
+            "[Source]\n"
+            f"Title: {title}\n"
+            f"URL: {url}\n"
+            f"Content: {content}\n"
+        )
+
+        blocks.append(block)
+
+    final_text = "\n---\n".join(blocks)
+
+    return final_text
 
 TOOLS: List[Callable[..., Any]] = [search]
 

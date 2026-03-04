@@ -11,7 +11,9 @@ async def main():
         {"messages": [("user", "Who is the founder of LangChain?")]},
         context=ctx,
     )
-
+    for m in res["messages"]:
+        print(m.type,m.content_blocks)
+    
 
 
 if __name__ == "__main__":

@@ -46,8 +46,3 @@ class Context:
                 setattr(self, f.name, os.environ.get(f.name.upper(), f.default))
 
     
-
-if __name__ == "__main__":
-    context = Context()
-    print(context)
-    print(context.system_prompt)
