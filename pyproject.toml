@@ -24,6 +24,7 @@ dependencies = [
     "langchain-community>=0.4.1",
     "wikipedia>=1.4.0",
     "nvitop>=1.6.2",
+    "ddgs>=9.11.2",
 ]
 
 

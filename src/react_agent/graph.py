@@ -48,33 +48,6 @@ async def call_model(
             [{"role": "system", "content": system_message}, *state.messages]
         ),
     )
-
-
-
-    # tmp = [
-    #     {"role": "system", "content": system_message},
-    #     *state.messages,
-    # ]
-
-    # print("Prompt sent to model:")
-
-    # for msg in tmp:
-    #     if isinstance(msg, dict):
-    #         role = msg.get("role")
-    #         content = msg.get("content")
-    #     else:
-    #         # LangChain message object
-    #         role = getattr(msg, "type", msg.__class__.__name__)
-    #         content = getattr(msg, "content", "")
-    #     print(f"{role}: {content}")
-
-    #     # 可选：如果是 AIMessage 且包含 tool_calls，也打印出来
-    #     if isinstance(msg, AIMessage) and msg.tool_calls:
-    #         print(f"  tool_calls: {msg.tool_calls}")
-
-    # print()
-
-
     
     # Handle the case when it's the last step and the model still wants to use a tool
     if state.is_last_step and response.tool_calls:
